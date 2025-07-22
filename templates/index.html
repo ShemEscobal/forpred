@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Forest Fire Burned Area Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #fff; }
+    .maroon-bg { background: #800000 !important; color: #fff !important; }
+    .maroon-text { color: #800000 !important; }
+    .btn-maroon { background: #800000; color: #fff; border: none; }
+    .btn-maroon:hover, .btn-maroon:focus { background: #a83232; color: #fff; }
+    .border-maroon { border-color: #800000 !important; }
+    .result-box {
+      border: 3px solid #000;
+      border-left: 10px solid #800000;
+      background: #fff;
+      border-radius: 1.5rem;
+      padding: 2em 1em;
+      margin-top: 2.5em;
+      text-align: center;
+      box-shadow: 0 2px 16px #0001;
+    }
+    .result-box h2 { color: #800000; font-weight: bold; letter-spacing: 1px; }
+    .result-box .fs-4 { color: #000; }
+    .result-box .risk-label { font-weight: bold; text-transform: uppercase; color: #800000; font-size: 1.3em; }
+    .alert-info { background: #fff3f3; color: #800000; border-color: #800000; }
+    .form-label, .form-text { color: #000 !important; }
+    .form-control:focus, .form-select:focus { border-color: #800000; box-shadow: 0 0 0 0.2rem #80000022; }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="mb-4 text-center maroon-text">Forest Fire Burned Area Predictor</h2>
+          <div class="alert alert-info mb-4 border-maroon" role="alert">
+            <strong>Note:</strong> For demo purposes, all other features are fixed and hidden. Only temperature, wind, relative humidity, and rain can be changed.
+          </div>
+          <form method="post" class="row g-3">
+            <!-- Hidden demo values for all features except temp, wind, RH, rain -->
+            <input type="hidden" name="X" value="4">
+            <input type="hidden" name="Y" value="4">
+            <input type="hidden" name="month" value="aug">
+            <input type="hidden" name="day" value="fri">
+            <input type="hidden" name="FFMC" value="85.0">
+            <input type="hidden" name="DMC" value="26.2">
+            <input type="hidden" name="DC" value="94.3">
+            <input type="hidden" name="ISI" value="5.1">
+            <div class="col-6">
+              <label class="form-label">Temp (°C)
+                <input type="number" name="temp" step="0.01" min="2.2" max="33.3" required class="form-control">
+                <div class="form-text">2.2–33.3</div>
+              </label>
+            </div>
+            <div class="col-6">
+              <label class="form-label">RH (%)
+                <input type="number" name="RH" step="1" min="15" max="100" required class="form-control">
+                <div class="form-text">15–100</div>
+              </label>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Wind (km/h)
+                <input type="number" name="wind" step="0.01" min="0.4" max="9.4" required class="form-control">
+                <div class="form-text">0.4–9.4</div>
+              </label>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Rain (mm)
+                <input type="number" name="rain" step="0.01" min="0" max="6.4" required class="form-control">
+                <div class="form-text">0–6.4</div>
+              </label>
+            </div>
+            <div class="col-12 d-grid mt-2 gap-2 d-md-flex justify-content-md-end">
+              <button type="submit" class="btn btn-maroon btn-lg me-md-2">Predict</button>
+              <button type="reset" class="btn btn-outline-dark btn-lg">Reset</button>
+            </div>
+          </form>
+          {% if result %}
+            <div class="result-box">
+              <h2 class="mb-3">Prediction Result</h2>
+              <div class="fs-4 mb-2"><b>Predicted Burned Area:</b> <span class="maroon-text">{{ result['area'] }} hectares</span></div>
+              <div class="fs-4"><b>Risk Level:</b> <span class="risk-label">{{ result['risk'] }}</span></div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
