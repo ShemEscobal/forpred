@@ -25,6 +25,7 @@
     .result-box .fs-4 { color: #000; }
     .result-box .risk-label { font-weight: bold; text-transform: uppercase; color: #800000; font-size: 1.3em; }
     .alert-info { background: #fff3f3; color: #800000; border-color: #800000; }
+    .alert-maroon { background: #800000; color: #fff; border-color: #800000; }
     .form-label, .form-text { color: #000 !important; }
     .form-control:focus, .form-select:focus { border-color: #800000; box-shadow: 0 0 0 0.2rem #80000022; }
   </style>
@@ -36,6 +37,9 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h2 class="mb-4 text-center maroon-text">Forest Fire Burned Area Predictor</h2>
+          <div class="alert alert-maroon mb-3" role="alert">
+            <b>Special Feature:</b> This demo uses a trained <b>Decision Tree</b> machine learning model on the <b>UCI Forest Fire dataset</b>.
+          </div>
           <div class="alert alert-info mb-4 border-maroon" role="alert">
             <strong>Note:</strong> For demo purposes, all other features are fixed and hidden. Only temperature, wind, relative humidity, and rain can be changed.
           </div>
