@@ -61,7 +61,7 @@ if st.button('Predict', use_container_width=True):
               temp, RH, wind, rain]
     X_input = pd.DataFrame([values], columns=FEATURES)
     # Load model and preprocessors
-    model = joblib.load('fire_model_export/best_fire_prediction_model.pkl')
+    model = joblib.load('best_fire_prediction_model.pkl')
     encoder_path = 'fire_model_export/feature_encoder.pkl'
     scaler_path = 'fire_model_export/feature_scaler.pkl'
     encoder = joblib.load(encoder_path) if os.path.exists(encoder_path) else None
