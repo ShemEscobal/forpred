@@ -14,20 +14,25 @@ st.markdown("""
 .result-box h2 { color: #800000; font-weight: bold; letter-spacing: 1px; margin-bottom: 1em; }
 .result-box .fs-4 { color: #000; font-size: 1.3em; }
 .result-box .risk-label { font-weight: bold; text-transform: uppercase; color: #800000; font-size: 1.5em; }
+.hint { color: #888; font-size: 0.97em; margin-bottom: 0.7em; margin-top: -0.5em; }
 </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="maroon-header">Forest Fire Burned Area Predictor</div>', unsafe_allow_html=True)
 st.markdown('<div class="maroon-note"><b>Note:</b> For demo purposes, all other features are fixed and hidden. Only temperature, wind, relative humidity, and rain can be changed.</div>', unsafe_allow_html=True)
 
-# Input fields
+# Input fields with allowed range hints
 col1, col2 = st.columns(2)
 with col1:
     temp = st.number_input('Temp (°C)', min_value=2.2, max_value=33.3, value=25.0, step=0.01, format="%.2f")
+    st.markdown("<div class='hint'>Allowed: 2.2–33.3</div>", unsafe_allow_html=True)
     wind = st.number_input('Wind (km/h)', min_value=0.4, max_value=9.4, value=4.0, step=0.01, format="%.2f")
+    st.markdown("<div class='hint'>Allowed: 0.4–9.4</div>", unsafe_allow_html=True)
 with col2:
     RH = st.number_input('RH (%)', min_value=15, max_value=100, value=45, step=1)
+    st.markdown("<div class='hint'>Allowed: 15–100</div>", unsafe_allow_html=True)
     rain = st.number_input('Rain (mm)', min_value=0.0, max_value=6.4, value=0.0, step=0.01, format="%.2f")
+    st.markdown("<div class='hint'>Allowed: 0–6.4</div>", unsafe_allow_html=True)
 
 # Fixed demo values for other features
 fixed_values = {
@@ -61,7 +66,7 @@ if st.button('Predict', use_container_width=True):
               temp, RH, wind, rain]
     X_input = pd.DataFrame([values], columns=FEATURES)
     # Load model and preprocessors
-    model = joblib.load('best_fire_prediction_model.pkl')
+    model = joblib.load('fire_model_export/best_fire_prediction_model.pkl')
     encoder_path = 'fire_model_export/feature_encoder.pkl'
     scaler_path = 'fire_model_export/feature_scaler.pkl'
     encoder = joblib.load(encoder_path) if os.path.exists(encoder_path) else None
